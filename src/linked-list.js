@@ -14,24 +14,25 @@ class LinkedList {
       value,
       next: null,
     };
-
+    this.size++;
+    // not set yet
     if (this.head === null) {
       this.head = newNode;
       this.tail = newNode;
+      // change tail.value and add tail.next
     } else {
       this.tail.next = newNode;
       this.tail = newNode;
     }
-    this.size++;
   }
   // Removes the current head node from the list, replacing it with the next element in the list
   // Returns the value of the removed node
   removeHead() {
+    this.size--;
     // if no head
     if (this.head === null) return null;
     const currentHead = this.head.value;
     this.head = this.head.next;
-    this.size--;
     return currentHead;
   }
 

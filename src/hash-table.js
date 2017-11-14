@@ -16,20 +16,27 @@ class HashTable {
   // If no bucket has been created for that index, instantiate a new bucket and add the key, value pair to that new bucket
   // If the key already exists in the bucket, the newer value should overwrite the older value associated with that key
   insert(key, value) {
+    // turns key to a String before sending it to getIndexBelowMax
     const index = getIndexBelowMax(String(key), this.limit);
     const bucket = this.storage.get(index);
     const arr = [key, value];
-
+    // if there is no bucket for this index in this.storage
+    // creat new Array at this.storage[index]
+    // and add arr to it
     if (bucket === undefined) {
       this.storage.set(index, [arr]);
     } else {
+      // check if key is already in bucket
       let keyPresent = false;
-      bucket.forEach((pair) => {
-        if (pair[0] === key) {
-          pair[1] = value;
+      // kvArr is [key,value]
+      // check each kvArr in bucket; if key found change it to new value
+      bucket.forEach((kvArr) => {
+        if (kvArr[0] === key) {
+          kvArr[1] = value;
           keyPresent = true;
         }
       });
+      // else add the kvArr to bucket
       if (keyPresent === false) {
         bucket.push(arr);
       }
@@ -39,14 +46,18 @@ class HashTable {
   // Fetch the bucket associated with the given key using the getIndexBelowMax function
   // Remove the key, value pair from the bucket
   remove(key) {
+    // turns key to a String before sending it to getIndexBelowMax
     const index = getIndexBelowMax(String(key), this.limit);
     const bucket = this.storage.get(index);
     if (bucket === undefined) {
-      return undefined;
+      // no bucket array at this.[index]
+      return;
     }
+    // look at the key in each array stored bucket; if a match found, remove it
     for (let i = 0; i < bucket.length; i++) {
       if (bucket[i][0] === key) {
         bucket.splice(i, 1);
+        return;
       }
     }
   }
@@ -59,6 +70,7 @@ class HashTable {
     if (bucket === undefined) {
       return undefined;
     }
+    // look at the value in each array stored bucket; if a match found, return it
     for (let i = 0; i < bucket.length; i++) {
       if (bucket[i][0] === key) {
         return bucket[i][1];
