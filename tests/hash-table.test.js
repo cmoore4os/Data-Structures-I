@@ -11,7 +11,9 @@ describe('HashTable', () => {
   it('should have "insert", "remove" and "retrieve" methods', () => {
     const hasInsert = Object.getPrototypeOf(hashTable).hasOwnProperty('insert');
     const hasRemove = Object.getPrototypeOf(hashTable).hasOwnProperty('remove');
-    const hasRetrieve = Object.getPrototypeOf(hashTable).hasOwnProperty('retrieve');
+    const hasRetrieve = Object.getPrototypeOf(hashTable).hasOwnProperty(
+      'retrieve',
+    );
     expect(hasInsert).toBe(true);
     expect(hasRemove).toBe(true);
     expect(hasRetrieve).toBe(true);
@@ -57,27 +59,27 @@ describe('HashTable', () => {
     expect(hashTable.retrieve('HI!')).toBe('Second Value');
   });
 
-/* Extra Credit */
-  
-  // it('should resize the hash table when > 75% full', () => {
-  //   hashTable.insert('a', true);
-  //   hashTable.insert('b', true);
-  //   hashTable.insert('c', true);
-  //   hashTable.insert('d', true);
-  //   hashTable.insert('e', true);
-  //   hashTable.insert('f', true);
-  //   hashTable.insert('g', true);
-  //   expect(hashTable.limit).toBe(16);
-  //   expect(hashTable.storage.length).toBe(8);
-  //   hashTable.insert('h', true);
-  //   hashTable.insert('i', true);
-  //   hashTable.insert('j', true);
-  //   hashTable.insert('k', true);
-  //   hashTable.insert('l', true);
-  //   hashTable.insert('m', true);
-  //   hashTable.insert('n', true);
-  //   hashTable.insert('o', true);
-  //   expect(hashTable.limit).toBe(32);
-  //   expect(hashTable.storage.length).toBe(16);
-  // });
+  /* Extra Credit */
+
+  it('should resize the hash table when >= 75% full', () => {
+    hashTable.insert('a', true);
+    hashTable.insert('b', true);
+    hashTable.insert('c', true);
+    hashTable.insert('d', true);
+    hashTable.insert('e', true);
+    hashTable.insert('f', true);
+    hashTable.insert('g', true);
+    expect(hashTable.limit).toBe(16);
+    expect(hashTable.storage.length).toBe(8);
+    hashTable.insert('h', true);
+    hashTable.insert('i', true);
+    hashTable.insert('j', true);
+    hashTable.insert('k', true);
+    hashTable.insert('l', true);
+    hashTable.insert('m', true);
+    hashTable.insert('n', true);
+    hashTable.insert('o', true);
+    expect(hashTable.limit).toBe(32);
+    expect(hashTable.storage.length).toBe(16);
+  });
 });
